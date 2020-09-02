@@ -6,5 +6,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //product_name, short_description, Add Description SKU, category, product_price, status,product_image, product_gallery,meta_title, meta_desc
+    protected $table = 'products';
+    protected $fillable = [
+        'type',
+        'name',
+        'slug',
+        'price',
+        'stock',
+        'discount',
+        'sku',
+        'size',
+        'color',
+        'short_desc',
+        'long_desc',
+        'featured_image',
+        'gallery_image',
+        'status',
+        'meta_title',
+        'meta_desc',
+    ];
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category', 'category_product_table', 'product_id', 'category_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
+    }
+
 }
