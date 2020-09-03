@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
-Route::apiResource('/users','UserController');
+// Route::apiResource('/users','UserController');
 
 Route::group(['namespace' => 'Products'], function () {
     Route::apiResource('/products','ProductController');
