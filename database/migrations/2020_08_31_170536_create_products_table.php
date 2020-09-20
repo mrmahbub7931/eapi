@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->string('size')->nullable();
             $table->string('color')->nullable();
-            $table->string('short_desc')->nullable();
+            $table->text('short_desc')->nullable();
             $table->text('long_desc')->nullable();
             $table->string('specs')->nullable();
             $table->string('featured_image')->nullable();

@@ -23,15 +23,6 @@ class UserSeeder extends Seeder
 
         DB::table('users')->insert([
             'role_id'   =>  2,
-            'name'      =>  'Demo User',
-            'number'    =>  '01914884707',
-            'email'     =>  'demouser@gmail.com',
-            'address'   =>  'CTG',
-            'password'  =>  bcrypt('123456'),
-        ]);
-
-        DB::table('users')->insert([
-            'role_id'   =>  3,
             'name'      =>  'Shop Manager',
             'number'    =>  '01715885707',
             'email'     =>  'shopmanager@gmail.com',
@@ -40,7 +31,7 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'role_id'   =>  4,
+            'role_id'   =>  3,
             'name'      =>  'Riya Roy',
             'number'    =>  '01314886707',
             'email'     =>  'riyaroy@gmail.com',

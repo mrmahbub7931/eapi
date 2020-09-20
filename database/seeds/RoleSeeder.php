@@ -18,11 +18,6 @@ class RoleSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name'  =>  'Demo Admin',
-            'slug'  =>  'demo-admin'
-        ]);
-
-        DB::table('roles')->insert([
             'name'  =>  'Shop Manager',
             'slug'  =>  'shopmanager'
         ]);

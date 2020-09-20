@@ -20,14 +20,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 
+    // Route::post('/login', 'UserController@login');
+    // Route::post('/register','UserController@store');
+    // Route::get('/users','UserController@index')->middleware('auth:api');
+    // Route::get('/logout', 'UserController@logout')->middleware('auth:api');
+
+
 // Route::apiResource('/users','UserController');
+
 
 Route::group(['namespace' => 'Products'], function () {
     Route::apiResource('/products','ProductController');
     Route::apiResource('/products/{product}/reviews','ReviewController');
 });
 
-Route::group(['namespace' => 'Category'], function () {
-    Route::apiResource('/category','CategoryController');
-    Route::apiResource('/subcategory','SubCategoryController');
+Route::group(['middleware' => ['auth:api']], function () {
+    
+    Route::group(['namespace' => 'Category'], function () {
+        Route::apiResource('/category','CategoryController');
+        Route::apiResource('/subcategory','SubCategoryController');
+    });
+    
 });

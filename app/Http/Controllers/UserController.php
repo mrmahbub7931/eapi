@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -14,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return User::all();
     }
 
     /**
@@ -35,7 +38,78 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // return response()->json($request->all());
+
+        $validator = Validator::make($request->all(), [
+            'name'      => 'required',
+            'email'     => 'required', 
+            'number'    => 'required', 
+            'password'  => 'required', 
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' =>  true,
+                'message'   =>  'Validation Error',
+                'data'  =>  $validator->errors()
+            ]);
+        }
+
+        $data = $request->all();
+        try {
+            $user = User::create($data);
+            
+            $response = [
+                'error' =>  false,
+                'message'   =>  'Successfully inserted',
+                'data'  =>  $user,
+            ];
+        } catch (Exception $e) {
+            $response = [
+                'error' =>  true,
+                'message'   =>  'Insertion failed!',
+                'data'  =>  NULL,
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function login(Request $request)
+    {
+        // return response()->json($request->all());
+
+        $validator = Validator::make($request->all(), [
+            'email'     => 'required',
+            'password'  => 'required', 
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' =>  true,
+                'message'   =>  'Validation Error',
+                'data'  =>  $validator->errors()
+            ]);
+        }
+
+        $user = User::where('email',$request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'error' =>  true,
+                'message'   =>  'User data not found!',
+                'data'  =>  NULL
+            ]);
+        }
+
+        if (Hash::check($request->password,$user->password)) {
+            return response()->json([
+                'error' =>  false,
+                'message'   =>  'User found!',
+                'data'  =>  $user
+            ]);
+        }
     }
 
     /**
