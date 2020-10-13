@@ -28,12 +28,22 @@ class Product extends Model
 
     public function categories()
     {
-        return $this->belongsToMany('App\Category', 'category_product_table', 'product_id', 'category_id');
+        return $this->belongsToMany('App\Category', 'category_product', 'product_id', 'category_id');
     }
 
     public function reviews()
     {
         return $this->hasMany('App\Review');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
 }

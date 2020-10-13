@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Products;
 
-use App\Http\Controllers\Controller;
 use App\Review;
+use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Product\ReviewResource;
 
 class ReviewController extends Controller
 {
@@ -13,9 +15,9 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        return Review::all();
+        return ReviewResource::collection($product->reviews);
     }
 
     /**

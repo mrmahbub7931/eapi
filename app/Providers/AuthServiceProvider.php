@@ -27,5 +27,18 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+
+        Passport::tokensCan([
+            'view-category'         =>  'View Categories',
+            'create-categories'     =>  'Create Categories',
+            'update-categories'     =>  'Update Categories',
+            'delete-categories'     =>  'Delete Categories',
+            'view-products'         =>  'View Products',
+            'create-products'       =>  'Create Products',
+            'update-products'       =>  'Update Products',
+            'delete-products'       =>  'Delete Products',
+        ]);
+
+        Passport::tokensExpireIn(now()->addDays(15));
     }
 }

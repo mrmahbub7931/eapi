@@ -34,11 +34,11 @@ Route::group(['namespace' => 'Products'], function () {
     Route::apiResource('/products/{product}/reviews','ReviewController');
 });
 
-Route::group(['middleware' => ['auth:api']], function () {
-    
-    Route::group(['namespace' => 'Category'], function () {
-        Route::apiResource('/category','CategoryController');
-        Route::apiResource('/subcategory','SubCategoryController');
-    });
-    
+Route::group(['namespace' => 'Category'], function () {
+    Route::apiResource('/category','CategoryController');
+});
+
+Route::group(['namespace' => 'Cart'], function () {
+    Route::match(['get','post'],'/cart','CartController@index')->name('cart.index');
+    Route::match(['get','post'],'/add-cart','CartController@store')->name('cart.store');
 });
